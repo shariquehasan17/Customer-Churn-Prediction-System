@@ -1,0 +1,45 @@
+import pickle  
+
+pickle.dump(rf_model, open("churn_model.pkl", "wb"))  
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler
+
+# Load dataset
+df = pd.read_csv("WA_Fn-UseC_-Telco-Customer-Churn.csv")
+
+# Convert TotalCharges to numeric, replacing empty strings with NaN
+df["TotalCharges"] = pd.to_numeric(df["TotalCharges"], errors="coerce")
+
+# Fill NaN values in TotalCharges with the median
+df["TotalCharges"] = df["TotalCharges"].fillna(df["TotalCharges"].median())
+
+# Convert categorical columns to numerical
+df["Dependents"] = df["Dependents"].map({"Yes": 1, "No": 0})
+df["Churn"] = df["Churn"].map({"Yes": 1, "No": 0})  # Target variable
+
+# Define features and target
+features = ["tenure", "MonthlyCharges", "TotalCharges", "Dependents"]
+X = df[features]
+y = df["Churn"]
+
+# Split dataset
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Standardize features (important for Logistic Regression)
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Train Logistic Regression model
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+# Make predictions
+y_pred = model.predict(X_test)
+
+print("Model training complete!")
+
+
