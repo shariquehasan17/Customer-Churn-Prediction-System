@@ -1,0 +1,16 @@
+import numpy as np
+import pandas as pd
+
+# Replace empty strings or spaces with NaN
+df["TotalCharges"] = df["TotalCharges"].replace(" ", np.nan)
+
+# Convert column to numeric (float64)
+df["TotalCharges"] = pd.to_numeric(df["TotalCharges"], errors="coerce")
+
+# Fill NaN values with median or mean
+df["TotalCharges"].fillna(df["TotalCharges"].median(), inplace=True)
+
+# Verify the column type and check for missing values
+print(df["TotalCharges"].dtype)  # Should output float64
+print(df["TotalCharges"].isnull().sum())  # Should be 0
+print(df["TotalCharges"].head())  # Check first few values
