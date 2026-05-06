@@ -1,0 +1,14 @@
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+corr_matrix = df[selected_features].corr()
+
+plt.figure(figsize=(6, 4))
+sns.heatmap(corr_matrix, annot=True, cmap="coolwarm", linewidths=0.5, fmt=".2f")
+plt.title("Correlation Matrix (Selected Features)")
+plt.show()
+
+
+sns.scatterplot(x="tenure", y="MonthlyCharges", hue=df["Churn"], alpha=0.5, data=df_sample)
+plt.title("Tenure vs MonthlyCharges")
+plt.show()
