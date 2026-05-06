@@ -1,0 +1,5 @@
+df = pd.read_csv("WA_Fn-UseC_-Telco-Customer-Churn.csv")  
+
+# Display first few rows  
+print(df.info())
+print(df.head())
