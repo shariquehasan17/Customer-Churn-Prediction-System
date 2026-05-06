@@ -1,0 +1,34 @@
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Bar plot for Churn distribution based on tenure
+plt.figure(figsize=(10, 5))
+sns.barplot(x=df["Churn"], y=df["tenure"], estimator=sum, ci=None)
+plt.title("Total Tenure Distribution by Churn")
+plt.xlabel("Churn")
+plt.ylabel("Total Tenure")
+plt.show()
+
+# Bar plot for MonthlyCharges
+plt.figure(figsize=(10, 5))
+sns.barplot(x=df["Churn"], y=df["MonthlyCharges"], estimator=sum, ci=None)
+plt.title("Total Monthly Charges Distribution by Churn")
+plt.xlabel("Churn")
+plt.ylabel("Monthly Charges")
+plt.show()
+
+# Bar plot for TotalCharges
+plt.figure(figsize=(10, 5))
+sns.barplot(x=df["Churn"], y=df["TotalCharges"], estimator=sum, ci=None)
+plt.title("Total Charges Distribution by Churn")
+plt.xlabel("Churn")
+plt.ylabel("Total Charges")
+plt.show()
+
+# Bar plot for Dependents
+plt.figure(figsize=(10, 5))
+sns.countplot(x=df["Dependents"], hue=df["Churn"])
+plt.title("Churn Distribution Based on Dependents")
+plt.xlabel("Dependents")
+plt.ylabel("Count")
+plt.show()
